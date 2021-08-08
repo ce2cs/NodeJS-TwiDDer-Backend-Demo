@@ -1,0 +1,4 @@
+module.exports = {
+    CRYPTO_SECRET_KEY: 'b610f578-f853-11eb-9a03-0242ac130003',
+    SESSION_SECRET_KEY: '610e5aac-2c24-40d3-b5f7-4ff6ddf54520'
+}
