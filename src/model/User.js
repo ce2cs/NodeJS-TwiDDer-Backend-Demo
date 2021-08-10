@@ -1,5 +1,6 @@
 const seq = require('./utils/sequelize')
-const { STRING, DECIMAL } = require('./utils/TYPE')
+const {STRING, DECIMAL} = require('./utils/TYPE')
+const {DEFAULT_PICTURE} = require('../config/constant')
 
 const User = seq.define('user', {
   userName: {
@@ -22,6 +23,7 @@ const User = seq.define('user', {
   },
   picture: {
     type: STRING,
+    defaultValue: DEFAULT_PICTURE
   },
   city: {
     type: STRING,
