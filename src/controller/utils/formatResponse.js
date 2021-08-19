@@ -8,7 +8,7 @@ class BaseResponse {
       this.message = message
     }
   }
-}
+};
 
 class SuccessResponse extends BaseResponse {
   constructor(data = {}) {
@@ -17,7 +17,7 @@ class SuccessResponse extends BaseResponse {
       data
     })
   }
-}
+};
 
 class ErrorResponse extends BaseResponse {
   constructor({errorNo, message}) {
@@ -26,9 +26,9 @@ class ErrorResponse extends BaseResponse {
       message
     })
   }
-}
+};
 
 module.exports = {
   SuccessResponse,
   ErrorResponse
-}
+};
