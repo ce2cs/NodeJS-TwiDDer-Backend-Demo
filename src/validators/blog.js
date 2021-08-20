@@ -1,4 +1,4 @@
-const validate = require('./_validate');
+const validate = require('./genValidator');
 const Ajv = require('ajv');
 
 const SCHEMA = {

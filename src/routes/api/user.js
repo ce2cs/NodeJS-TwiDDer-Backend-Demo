@@ -53,12 +53,13 @@ router.post('/logout', loginCheck, async (ctx, next) => {
 });
 
 router.get('/getFollowing', loginCheck, async (ctx, next) => {
-  const { id: userId } = ctx.session.userInfo
-  const result = await getFollowing(userId)
-  const { followingList } = result.data
-  const list = followingList.map(user => {
+  const { id: userId } = ctx.session.userInfo;
+  const result = await getFollowing(userId);
+  const { followingsList } = result.data;
+  console.log(followingsList);
+  const list = followingsList.map(user => {
     return `${user.nickName} - ${user.userName}`
-  })
+  });
   ctx.body = list;
 });
 

@@ -60,10 +60,10 @@ async function getFollowingsByUser(userId) {
     }
 }
 
-async function addFollowing(userId, FollowingId) {
+async function addFollowing(userId, followingId) {
     const result = await UserRelation.create({
         userId,
-        FollowingId
+        followingId
     });
     return result.dataValues;
 }

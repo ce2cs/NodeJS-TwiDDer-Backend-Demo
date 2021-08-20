@@ -1,0 +1,35 @@
+<div class="margin-bottom-20 ">
+    <button id="btn-load-more" type="button" class="btn btn-sm btn-lg btn-block">点击加载更多</button>
+</div>
+
+<script>
+    var PAGE_SIZE = <%= pageSize%>
+    var PAGE_INDEX =  <%= pageIndex%>
+    var COUNT =  <%= count%>
+    var $btnLoadMore = $('#btn-load-more')
+    var $containerWeiboList = $('<%= containerSelector%>')
+    var api = '<%= api%>'
+
+    $btnLoadMore.click(function () {
+        var nextPageIndex = PAGE_INDEX + 1;
+        ajax.get(api + '/' + nextPageIndex, function(err, data) {
+            if (err) {
+                alert(err);
+                return;
+            }
+            PAGE_INDEX = data.pageIndex;
+
+            if ((PAGE_INDEX + 1) * PAGE_SIZE >= COUNT) {
+                $btnLoadMore.hide();
+            }
+
+            var $tempContainer = $(data.blogListTpl);
+            $tempContainer.each(function (index, item) {
+                if (item.nodeType !== 1) {
+                    return;
+                }
+                $containerWeiboList.append($(item));
+            });
+        });
+    });
+</script>

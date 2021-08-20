@@ -1,9 +1,13 @@
-const { DEFAULT_PICTURE, REG_FOR_AT_WHO } = require('../conf/constant')
-const { timeFormat } = require('../utils/dt')
+const { REG_FOR_AT_WHO } = require('../../config/constant')
+const { format } = require('date-fns')
+
+function _timeFormat(str) {
+    return format(new Date(str), 'MM.dd HH:mm')
+}
 
 function _formatDBTime(obj) {
-    obj.createdAtFormat = timeFormat(obj.createdAt)
-    obj.updatedAtFormat = timeFormat(obj.updatedAt)
+    obj.createdAtFormat = _timeFormat(obj.createdAt)
+    obj.updatedAtFormat = _timeFormat(obj.updatedAt)
     return obj;
 }
 
@@ -36,4 +40,4 @@ function formatBlog(list) {
 
 module.exports = {
     formatBlog
-}
+};

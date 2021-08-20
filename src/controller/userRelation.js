@@ -1,6 +1,6 @@
 const {
     getUsersByFollowing,
-    getFollowingByUser,
+    getFollowingsByUser,
     addFollowing,
     deleteFollowing
 } = require('../services/userRelation')
@@ -17,11 +17,11 @@ async function getFans(userId) {
 }
 
 async function getFollowing(userId) {
-    const { count, userList } = await getFollowingByUser(userId);
+    const { count, userList } = await getFollowingsByUser(userId);
 
     return new SuccessResponse({
         count,
-        FollowingsList: userList
+        followingsList: userList
     });
 }
 

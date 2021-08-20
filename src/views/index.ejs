@@ -1,4 +1,4 @@
-<%- include('layout/header', { title: '微博 - 首页', isNav: true, list: true, isInputBlog: true }) %>
+<%- include('layout/header', { title: 'TwiDDer - HomePage', isNav: true, list: true, isInputBlog: true }) %>
 
 <div class="container margin-top-20">
     <div class="row">
@@ -46,9 +46,9 @@
             userList: userData.fansData.list
             }) %>
 
-            <%- include('widgets/followers', {
-            count: userData.followersData.count,
-            userList: userData.followersData.list
+            <%- include('widgets/followings', {
+            count: userData.followingsData.count,
+            userList: userData.followingsData.list
             }) %>
         </div>
     </div>

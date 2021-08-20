@@ -1,71 +1,68 @@
-<%- include('layout/header', { title: '微博 - 设置', isNav: true })%>
+<%- include('layout/header', { title: 'TwiDDer - Settings', isNav: true })%>
 
 <div class="container margin-top-20">
     <div class="row">
-        <!-- 左侧 -->
         <div class="col-8">
-            <h5 class="margin-bottom-10">基本信息</h5>
+            <h5 class="margin-bottom-10">Personal info</h5>
             <form>
                 <div class="form-group row">
-                    <label for="input-nick" class="col-sm-2 col-form-label">昵称</label>
+                    <label for="input-nick" class="col-sm-2 col-form-label">Nickname</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="input-nick" placeholder="请输入昵称" value="<%= nickName%>">
+                        <input type="text" class="form-control" id="input-nick" placeholder="Please input a nickname" value="<%= nickName%>">
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="input-city" class="col-sm-2 col-form-label">城市</label>
+                    <label for="input-city" class="col-sm-2 col-form-label">City</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="input-city" placeholder="请输入城市" value="<%= city%>">
+                        <input type="text" class="form-control" id="input-city" placeholder="Please input a city" value="<%= city%>">
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="file-picture" class="col-sm-2 col-form-label">头像</label>
+                    <label for="file-picture" class="col-sm-2 col-form-label">Icon</label>
                     <div class="col-sm-10">
                         <img src="<%= picture%>" style="width: 100px;" class="margin-bottom-10" id="img-picture"/>
                         <input type="file" class="form-control-file" accept="image/*" id="file-picture">
                     </div>
                 </div>
-                <center><button type="submit" class="btn btn-primary" id="btn-submit-info">保存</button></center>
+                <center><button type="submit" class="btn btn-primary" id="btn-submit-info">Save</button></center>
             </form>
 
             <hr/>
-            <h5 class="margin-bottom-10">修改密码</h5>
+            <h5 class="margin-bottom-10">Change password</h5>
             <form>
                 <div class="form-group row">
-                    <label for="input-cur-password" class="col-sm-2 col-form-label">当前密码</label>
+                    <label for="input-cur-password" class="col-sm-2 col-form-label">Current password</label>
                     <div class="col-sm-10">
-                        <input type="password" class="form-control" id="input-cur-password" placeholder="请输入当前密码">
+                        <input type="password" class="form-control" id="input-cur-password" placeholder="Please input current password">
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="input-new-password" class="col-sm-2 col-form-label">新密码</label>
+                    <label for="input-new-password" class="col-sm-2 col-form-label">New password</label>
                     <div class="col-sm-10">
-                        <input type="password" class="form-control" id="input-new-password" placeholder="请输入新密码">
+                        <input type="password" class="form-control" id="input-new-password" placeholder="Please input new password">
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="input-new-password-repeat" class="col-sm-2 col-form-label">确认密码</label>
+                    <label for="input-new-password-repeat" class="col-sm-2 col-form-label">Confirm password</label>
                     <div class="col-sm-10">
-                        <input type="password" class="form-control" id="input-new-password-repeat" placeholder="请输入确认密码">
+                        <input type="password" class="form-control" id="input-new-password-repeat" placeholder="Please confirm your password">
                     </div>
                 </div>
-                <center><button type="submit" class="btn btn-primary" id="btn-submit-password">提交</button></center>
+                <center><button type="submit" class="btn btn-primary" id="btn-submit-password">Submit</button></center>
             </form>
 
             <hr/>
             <center><button class="btn btn-danger"  id="btn-logout">退出登录</button></center>
 
-        </div> <!-- 左侧结束 -->
+        </div>
 
-        <!-- 右侧 -->
         <div class="col-4">
-        </div> <!-- 右侧结束 -->
+        </div>
     </div>
 </div>
 
 <script>
 $(function() {
-    // 上传图片
     var $imgPicture = $('#img-picture')
     var $filePicture = $('#file-picture')
     $filePicture.change(function (e) {
@@ -75,12 +72,10 @@ $(function() {
                 alert(err)
                 return
             }
-            // 成功
             $imgPicture.attr('src', data.url)
         })
     })
 
-    // 修改基本信息
     var $inputNick = $('#input-nick')
     var $inputCity = $('#input-city')
     $('#btn-submit-info').click(function(e) {
@@ -98,11 +93,10 @@ $(function() {
                 alert(err)
                 return
             }
-            alert('修改成功')
+            alert('Change Success!')
         })
     })
 
-    // 修改密码
     var $inputCurPassword = $('#input-cur-password')
     var $inputNewPassword = $('#input-new-password')
     var $inputNewPasswordRepeat = $('#input-new-password-repeat')
@@ -113,11 +107,11 @@ $(function() {
         var newPasswordRepeat = $inputNewPasswordRepeat.val()
 
         if (newPassword !== newPasswordRepeat) {
-            alert('两次新密码输入不一致')
+            alert('The passwords can not match')
             return
         }
         if (curPassword === newPassword) {
-            alert('新密码和当前密码一致')
+            alert('New password cannot be the same as your current password!')
             return
         }
         
@@ -129,16 +123,15 @@ $(function() {
                 alert(err)
                 return
             }
-            alert('修改成功')
+            alert('Change Success!')
             $inputCurPassword.val('')
             $inputNewPassword.val('')
             $inputNewPasswordRepeat.val('')
         })
     })
 
-    // 退出登录
     $('#btn-logout').click(function() {
-        if (confirm('是否确定退出登录？') === false) {
+        if (confirm('Are you sure to logout？') === false) {
             return
         }
         ajax.post('/api/user/logout', function(err, data) {
@@ -146,7 +139,7 @@ $(function() {
                 console.error(err)
                 return
             }
-            alert('已成功退出')
+            alert('logout succeed!')
             location.href = '/login'
         })
     })
