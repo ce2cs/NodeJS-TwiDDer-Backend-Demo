@@ -1,6 +1,6 @@
 {
     "apps": {
-        "name": "weibo",
+        "name": "TwiDDer",
         "script": "bin/www",
         "watch": true,
         "ignore_watch": [
