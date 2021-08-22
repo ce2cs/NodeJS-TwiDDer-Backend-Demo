@@ -20,7 +20,7 @@ if (isProd) {
 
     MYSQL_CONF = {
         host: 'localhost',
-        user: 'root',
+        user: 'boyang',
         password: '123456',
         port: '3306',
         database: 'koa2_TwiDDer_db'
