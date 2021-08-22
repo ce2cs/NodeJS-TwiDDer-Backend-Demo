@@ -30,7 +30,6 @@
 
 <script>
 $(function () {
-    // 设置焦点
     function setCursor(el, st, end) {
         if (el.setSelectionRange) {
             el.focus()
@@ -44,18 +43,15 @@ $(function () {
         }
     }
 
-    // 回复
     var $textContent = $('#text-content')
     $('.blog-list-reply').click(function (e) {
         e.preventDefault()
         var $target = $(e.target)
 
-        // 获取内容和用户
         var content = $target.attr('data-content')
         var userName = $target.attr('data-userName')
         var nickName = $target.attr('data-nickName')
 
-        // 设置内容并获取焦点
         $textContent.val(' // @' + nickName + ' - ' + userName + ' : ' + content)
         setCursor($textContent[0], 0, 0)
     })

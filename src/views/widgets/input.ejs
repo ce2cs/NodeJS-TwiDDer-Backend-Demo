@@ -1,7 +1,7 @@
 <div class="margin-bottom-10 padding-bottom-10 border-bottom">
     <textarea class="form-control" id="text-content" rows="3"></textarea>
     <div class="margin-top-10">
-        <button class="btn btn-primary" id="btn-submit">发表</button>
+        <button class="btn btn-primary" id="btn-submit">Publish</button>
         &nbsp;
         <a href="#" id="btn-add-img">
             <i class="fa fa-picture-o"></i>
@@ -29,30 +29,24 @@ $(function () {
                 alert(err)
                 return
             }
-            // 成功
             $inputImgUrl.val(data.url)
         })
     })
 
-    // 插入图片
     $('#btn-add-img').click(function (e) {
         e.preventDefault()
-        //  开始选择图片
         $filePicture.click()
     })
 
-    // 发布微博
     $('#btn-submit').click(function () {
         var content = $textContent.val().trim()
         var imgUrl = $inputImgUrl.val() || ''
 
-        // 验证
         if (content.length === 0) {
-            alert('请输入微博内容')
+            alert('Please Input your tweet')
             return
         }
 
-        // 发布
         ajax.post('/api/blog/create', {
             content: content,
             image: imgUrl
