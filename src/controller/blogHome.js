@@ -16,7 +16,6 @@ async function create({userId, content, image}) {
     found = [...found];
     if (found) {
         for (let i = 0; i < found.length; i++) {
-            console.log(found[i]);
             atUserNameList.push(found[i][1]);
         }
     }

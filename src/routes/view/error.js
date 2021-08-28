@@ -6,15 +6,15 @@ router.get('/get-an-error', async (ctx, next) => {
   ctx.body = {
     msg: 'xxx'
   }
-  throw Error()
+  throw Error();
 })
 
 router.get('/error', async (ctx, next) => {
-  await ctx.render('error')
+  await ctx.render('error');
 })
 
 router.get('*', async (ctx, next) => {
-  await ctx.render('404')
+  await ctx.render('404');
 })
 
-module.exports = router
+module.exports = router;

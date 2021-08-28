@@ -56,7 +56,6 @@ router.get('/getAtList', loginCheck, async (ctx, next) => {
   const { id: userId } = ctx.session.userInfo;
   const result = await getFollowing(userId);
   const { followingsList } = result.data;
-  console.log(followingsList);
   const list = followingsList.map(user => {
     return `${user.nickName} - ${user.userName}`
   });

@@ -78,7 +78,6 @@
         var $filePicture = $('#file-picture')
         $filePicture.change(function (e) {
             var file = $filePicture[0].files[0]
-            console.log(file);
             ajax.upload('/api/utils/upload', file, function (err, data) {
                 if (err) {
                     alert(err);

@@ -15,21 +15,21 @@ test('register test: supposed to succeed', async () => {
     const res = await server
         .post('/api/user/register')
         .send(testUser);
-    expect(res.body.errorNo).toBe(0);
+    expect(res.body.errno).toBe(0);
 });
 
 test('register a duplicated account: supposed to fail', async () => {
     const res = await server
         .post('/api/user/register')
         .send(testUser);
-    expect(res.body.errorNo).not.toBe(0);
+    expect(res.body.errno).not.toBe(0);
 });
 
 test('check if an account exist: supposed to succeed', async () => {
     const res = await server
         .post('/api/user/isExist')
         .send({userName});
-    expect(res.body.errorNo).toBe(0);
+    expect(res.body.errno).toBe(0);
 });
 
 test('json schema validation: supposed to fail', async () => {
@@ -40,7 +40,7 @@ test('json schema validation: supposed to fail', async () => {
             password: 'a',
             gender: 'male'
         });
-    expect(res.body.errorNo).not.toBe(0)
+    expect(res.body.errno).not.toBe(0)
 });
 
 test('login: supposed to succeed', async () => {
@@ -50,7 +50,7 @@ test('login: supposed to succeed', async () => {
             userName,
             password
         });
-    expect(res.body.errorNo).toBe(0);
+    expect(res.body.errno).toBe(0);
 
     COOKIE = res.headers['set-cookie'].join(';')
 });
@@ -64,7 +64,7 @@ test('change personal information: supposed to succeed', async () => {
             picture: '/test.png'
         })
         .set('cookie', COOKIE);
-    expect(res.body.errorNo).toBe(0);
+    expect(res.body.errno).toBe(0);
 });
 
 test('change password: supposed to succeed', async () => {
@@ -75,26 +75,26 @@ test('change password: supposed to succeed', async () => {
             newPassword: `p_${Date.now()}`
         })
         .set('cookie', COOKIE);
-    expect(res.body.errorNo).toBe(0);
+    expect(res.body.errno).toBe(0);
 });
 
 test('delete an account: supposed to success', async () => {
     const res = await server
         .post('/api/user/delete')
         .set('cookie', COOKIE);
-    expect(res.body.errorNo).toBe(0);
+    expect(res.body.errno).toBe(0);
 });
 
 test('logout: supposed to success', async () => {
     const res = await server
         .post('/api/user/logout')
         .set('cookie', COOKIE);
-    expect(res.body.errorNo).toBe(0);
+    expect(res.body.errno).toBe(0);
 });
 
 test('check if account exist after delete: suppose to fail', async () => {
     const res = await server
         .post('/api/user/isExist')
         .send({userName});
-    expect(res.body.errorNo).not.toBe(0);
+    expect(res.body.errno).not.toBe(0);
 });

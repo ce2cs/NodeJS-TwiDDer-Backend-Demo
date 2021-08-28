@@ -9,7 +9,7 @@ const BLOG_LIST_TPL = fs.readFileSync(
 function getBlogListStr(blogList = [], canReply = false) {
     return ejs.render(BLOG_LIST_TPL, {
         blogList,
-        canReply
+        canReply // whether blogs can be replied
     });
 }
 

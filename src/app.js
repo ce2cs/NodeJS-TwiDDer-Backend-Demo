@@ -47,7 +47,7 @@ app.use(session({
   cookie: {
     path: '/',
     httpOnly: true,
-    maxAge: 24 * 60 * 60 * 1000  // 单位 ms
+    maxAge: 24 * 60 * 60 * 1000
   },
   store: redisStore({
     all: `${REDIS_CONF.host}:${REDIS_CONF.port}`
@@ -59,7 +59,7 @@ app.use(async (ctx, next) => {
   const start = new Date()
   await next()
   const ms = new Date() - start
-  console.log(`${ctx.method} ${ctx.url} - ${ms}ms`)
+  console.log(`${ctx.method} ${ctx.url} - ${ms}ms`);
 })
 
 // routes
