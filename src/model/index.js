@@ -1,6 +1,7 @@
 const User = require('./User');
 const UserRelation = require("./UserRelation");
 const Blog = require('./Blog');
+const AtRelation = require('./AtRelation')
 
 Blog.belongsTo(User, {
   foreignKey: 'userId'
@@ -19,8 +20,13 @@ Blog.belongsTo(UserRelation, {
   targetKey: 'followingId'
 });
 
+Blog.hasMany(AtRelation, {
+  foreignKey: 'blogId'
+})
+
 module.exports = {
   User,
   UserRelation,
-  Blog
+  Blog,
+  AtRelation
 };

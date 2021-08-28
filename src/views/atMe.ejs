@@ -1,0 +1,38 @@
+<%- include('layout/header', { title: 'TwiDDer - @ Mentioned me ', isNav: true, list: true, isInputBlog: true  })%>
+
+<div class="container margin-top-20">
+    <div class="row">
+        <div class="col-8">
+            <h4 class="padding-bottom-10">
+                @ Mentioned Me (<%= atCount%> Unread)
+            </h4>
+
+            <%- include('widgets/input')%>
+
+            <% if (blogData.isEmpty) { %>
+                <div>
+                    <center>No Data</center>
+                </div>
+            <% } else { %>
+                <div id="container-weibo-list" class="weibo-list">
+                    <%- include('widgets/blog-list', {
+                        blogList: blogData.blogList,
+                        canReply: true
+                    })%>
+                </div>
+                <% if (blogData.count > blogData.blogList.length) { %>
+                    <%- include('widgets/load-more', {
+                        pageSize: blogData.pageSize,
+                        pageIndex: blogData.pageIndex,
+                        count: blogData.count,
+                        containerSelector: '#container-weibo-list',
+                        api: '/api/atMe/loadMore',
+                    })%>
+                <% } %>
+            <% } %>
+
+        </div>
+    </div>
+</div>
+
+<%- include('layout/footer')%>

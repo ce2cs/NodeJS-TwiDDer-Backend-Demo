@@ -5,7 +5,7 @@ const { getSquareBlogList } = require('../../controller/blogSquare')
 const { checkIfUserExists } = require('../../controller/user')
 const { getFans, getFollowing } = require('../../controller/userRelation')
 const { getHomeBlogList } = require('../../controller/blogHome')
-// const { getAtMeCount, getAtMeBlogList, markAsRead } = require('../../controller/blogAt')
+const { getAtMeCount, getAtMeBlogList, markAsRead } = require('../../controller/blogAt')
 
 const router = Router();
 
@@ -23,8 +23,8 @@ router.get('/', loginRedirect, async (ctx, next) => {
     console.log(followingsResult);
     const { count: followingsCount, followingsList } = followingsResult.data;
 
-    // const atCountResult = await getAtMeCount(userId)
-    // const { count: atCount } = atCountResult.data
+    const atCountResult = await getAtMeCount(userId)
+    const { count: atCount } = atCountResult.data
 
     await ctx.render('index', {
         userData: {
@@ -37,7 +37,7 @@ router.get('/', loginRedirect, async (ctx, next) => {
                 count: followingsCount,
                 list: followingsList
             },
-            // atCount
+            atCount
         },
         blogData: {
             isEmpty,
@@ -52,39 +52,40 @@ router.get('/', loginRedirect, async (ctx, next) => {
 router.get('/profile', loginRedirect, async (ctx, next) => {
     const { userName } = ctx.session.userInfo
     ctx.redirect(`/profile/${userName}`)
-})
-router.get('/profile/:userName', loginRedirect, async (ctx, next) => {
-    const myUserInfo = ctx.session.userInfo
-    const myUserName = myUserInfo.userName
+});
 
-    let curUserInfo
-    const { userName: curUserName } = ctx.params
-    const isMe = myUserName === curUserName
+router.get('/profile/:userName', loginRedirect, async (ctx, next) => {
+    const myUserInfo = ctx.session.userInfo;
+    const myUserName = myUserInfo.userName;
+
+    let curUserInfo;
+    const { userName: curUserName } = ctx.params;
+    const isMe = myUserName === curUserName;
     if (isMe) {
-        curUserInfo = myUserInfo
+        curUserInfo = myUserInfo;
     } else {
-        const existResult = await checkIfUserExists(curUserName)
+        const existResult = await checkIfUserExists(curUserName);
         if (existResult.errno !== 0) {
-            return
+            return;
         }
-        curUserInfo = existResult.data
+        curUserInfo = existResult.data;
     }
 
-    const result = await getProfileBlogList(curUserName, 0)
-    const { isEmpty, blogList, pageSize, pageIndex, count } = result.data
+    const result = await getProfileBlogList(curUserName, 0);
+    const { isEmpty, blogList, pageSize, pageIndex, count } = result.data;
 
-    const fansResult = await getFans(curUserInfo.id)
-    const { count: fansCount, fansList } = fansResult.data
+    const fansResult = await getFans(curUserInfo.id);
+    const { count: fansCount, fansList } = fansResult.data;
 
-    const followingsResult = await getFollowing(curUserInfo.id)
-    const { count: followingsCount, followingsList } = followingsResult.data
+    const followingsResult = await getFollowing(curUserInfo.id);
+    const { count: followingsCount, followingsList } = followingsResult.data;
 
     const amIFollowed = fansList.some(item => {
         return item.userName === myUserName
-    })
+    });
 
-    // const atCountResult = await getAtMeCount(myUserInfo.id)
-    // const { count: atCount } = atCountResult.data
+    const atCountResult = await getAtMeCount(myUserInfo.id);
+    const { count: atCount } = atCountResult.data;
 
     await ctx.render('profile', {
         blogData: {
@@ -106,10 +107,10 @@ router.get('/profile/:userName', loginRedirect, async (ctx, next) => {
                 list: followingsList
             },
             amIFollowed,
-            // atCount
+            atCount
         }
     })
-})
+});
 
 router.get('/square', loginRedirect, async (ctx, next) => {
     const result = await getSquareBlogList(0)
@@ -126,29 +127,29 @@ router.get('/square', loginRedirect, async (ctx, next) => {
     })
 })
 
-// router.get('/at-me', loginRedirect, async (ctx, next) => {
-//     const { id: userId } = ctx.session.userInfo
-//
-//     const atCountResult = await getAtMeCount(userId)
-//     const { count: atCount } = atCountResult.data
-//
-//     const result = await getAtMeBlogList(userId)
-//     const { isEmpty, blogList, pageSize, pageIndex, count } = result.data
-//
-//     await ctx.render('atMe', {
-//         atCount,
-//         blogData: {
-//             isEmpty,
-//             blogList,
-//             pageSize,
-//             pageIndex,
-//             count
-//         }
-//     })
+router.get('/at-me', loginRedirect, async (ctx, next) => {
+    const { id: userId } = ctx.session.userInfo
 
-    // if (atCount > 0) {
-        // await markAsRead(userId)
-    // }
-// })
+    const atCountResult = await getAtMeCount(userId)
+    const { count: atCount } = atCountResult.data
+
+    const result = await getAtMeBlogList(userId)
+    const { isEmpty, blogList, pageSize, pageIndex, count } = result.data
+
+    await ctx.render('atMe', {
+        atCount,
+        blogData: {
+            isEmpty,
+            blogList,
+            pageSize,
+            pageIndex,
+            count
+        }
+    })
+
+    if (atCount > 0) {
+        await markAsRead(userId)
+    }
+})
 
 module.exports = router;

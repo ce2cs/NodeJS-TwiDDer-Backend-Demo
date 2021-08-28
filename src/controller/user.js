@@ -74,11 +74,11 @@ async function changeInfo(ctx, { nickName, city, picture }) {
       nickName,
       city,
       picture
-    })
-    return new SuccessResponse()
+    });
+    return new SuccessResponse();
   }
 
-  return new ErrorResponse(changeInfoFailInfo)
+  return new ErrorResponse(changeInfoFailInfo);
 }
 
 async function changePassword(userName, password, newPassword) {

@@ -17,12 +17,12 @@ const { SESSION_SECRET_KEY } = require('./config/secretKeys');
 const userViewRouter = require('./routes/view/user');
 const errorViewRouter = require('./routes/view/error');
 const userAPIRouter = require('./routes/api/user');
-// const atAPIRouter = require('./routes/api/blogAt')
-const squareAPIRouter = require('./routes/api/blogSquare')
-const profileAPIRouter = require('./routes/api/blogProfile')
-const homeAPIRouter = require('./routes/api/blogHome')
-const blogViewRouter = require('./routes/view/blog')
-const utilsAPIRouter = require('./routes/api/utils')
+const atAPIRouter = require('./routes/api/blogAt');
+const squareAPIRouter = require('./routes/api/blogSquare');
+const profileAPIRouter = require('./routes/api/blogProfile');
+const homeAPIRouter = require('./routes/api/blogHome');
+const blogViewRouter = require('./routes/view/blog');
+const utilsAPIRouter = require('./routes/api/utils');
 
 // error handler
 onerror(app);
@@ -35,7 +35,6 @@ app.use(json());
 app.use(logger());
 app.use(serve(__dirname + '/public'));
 app.use(serve(path.join(__dirname, '..', 'uploadFiles')))
-app.use(require('koa-static')(__dirname + '/public'))
 
 app.use(views(__dirname + '/views', {
   extension: 'ejs'
@@ -64,7 +63,7 @@ app.use(async (ctx, next) => {
 })
 
 // routes
-// app.use(atAPIRouter.routes());
+app.use(atAPIRouter.routes());
 app.use(squareAPIRouter.routes());
 app.use(profileAPIRouter.routes());
 app.use(homeAPIRouter.routes());

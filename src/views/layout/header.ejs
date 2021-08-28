@@ -29,13 +29,10 @@
     <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <% } %>
 
-    <!-- jquery 要首先引入-->
     <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
-    <!-- 封装的 ajax -->
     <script src="/javascripts/my-ajax.js"></script>
 
     <% if (locals.isInputBlog) { %>
-    <%# 有发布微博的功能，需要 at.js https://github.com/ichord/At.js %>
     <link href="/css/jquery.atwho.css" rel="stylesheet">
     <script src="/javascripts/jquery.caret.js"></script>
     <script src="/javascripts/jquery.atwho.js"></script>
@@ -44,7 +41,6 @@
 <body>
 
     <% if (locals.isNav) { %>
-    <%# 有导航%>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <a class="navbar-brand" href="/">TwiDDer</a>
         <ul class="navbar-nav mr-auto" style="flex-direction: row;">

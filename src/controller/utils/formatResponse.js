@@ -1,6 +1,6 @@
 class BaseResponse {
-  constructor({errorNo, data, message}) {
-    this.errorNo = errorNo
+  constructor({errno, data, message}) {
+    this.errno = errno
     if (data) {
       this.data = data
     }
@@ -13,16 +13,16 @@ class BaseResponse {
 class SuccessResponse extends BaseResponse {
   constructor(data = {}) {
     super({
-      errorNo: 0,
+      errno: 0,
       data
     })
   }
 };
 
 class ErrorResponse extends BaseResponse {
-  constructor({errorNo, message}) {
+  constructor({errno, message}) {
     super({
-      errorNo,
+      errno,
       message
     })
   }

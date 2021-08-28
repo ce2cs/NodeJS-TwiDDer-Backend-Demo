@@ -1,29 +1,31 @@
 const xss = require('xss')
-const { createBlog, getFollowingsBlogList } = require('../services/blog')
-const { PAGE_SIZE, REG_FOR_AT_WHO } = require('../config/constant')
-const { getUserInfo } = require('../services/user')
-// const { createAtRelation } = require('../services/at-relation')
+const {createBlog, getFollowingsBlogList} = require('../services/blog')
+const {PAGE_SIZE, REG_FOR_AT_WHO} = require('../config/constant')
+const {getUserInfo} = require('../services/user')
+const { createAtRelation } = require('../services/atRelation')
 const {SuccessResponse, ErrorResponse} = require("./utils/formatResponse");
 const {createBlogFailInfo} = require("./utils/errorCodes");
 
-async function create({ userId, content, image }) {
-    // // 分析并收集 content 中的 @ 用户
-    // // content 格式如 '哈喽 @李四 - lisi 你好 @王五 - wangwu '
-    // const atUserNameList = []
-    // content = content.replace(
-    //     REG_FOR_AT_WHO,
-    //     (matchStr, nickName, userName) => {
-    //         // 目的不是 replace 而是获取 userName
-    //         atUserNameList.push(userName)
-    //         return matchStr // 替换不生效，预期
-    //     }
-    // )
+async function create({userId, content, image}) {
 
-    // const atUserList = await Promise.all(
-    //     atUserNameList.map(userName => getUserInfo(userName))
-    // )
-    //
-    // const atUserIdList = atUserList.map(user => user.id)
+    const atUserNameList = [];
+    let found = content.matchAll(
+        REG_FOR_AT_WHO
+    );
+
+    found = [...found];
+    if (found) {
+        for (let i = 0; i < found.length; i++) {
+            console.log(found[i]);
+            atUserNameList.push(found[i][1]);
+        }
+    }
+
+    const atUserList = await Promise.all(
+        atUserNameList.map(userName => getUserInfo(userName))
+    )
+
+    const atUserIdList = atUserList.map(user => user.id)
 
     try {
         const blog = await createBlog({
@@ -32,9 +34,9 @@ async function create({ userId, content, image }) {
             image
         })
 
-        // await Promise.all(atUserIdList.map(
-        //     userId => createAtRelation(blog.id, userId)
-        // ))
+        await Promise.all(atUserIdList.map(
+            userId => createAtRelation(blog.id, userId)
+        ))
 
         return new SuccessResponse(blog);
     } catch (e) {
@@ -51,7 +53,7 @@ async function getHomeBlogList(userId, pageIndex = 0) {
             pageSize: PAGE_SIZE
         }
     );
-    const { count, blogList } = result;
+    const {count, blogList} = result;
 
     return new SuccessResponse({
         isEmpty: blogList.length === 0,

@@ -52,7 +52,7 @@ router.post('/logout', loginCheck, async (ctx, next) => {
   ctx.body = await logout(ctx);
 });
 
-router.get('/getFollowing', loginCheck, async (ctx, next) => {
+router.get('/getAtList', loginCheck, async (ctx, next) => {
   const { id: userId } = ctx.session.userInfo;
   const result = await getFollowing(userId);
   const { followingsList } = result.data;

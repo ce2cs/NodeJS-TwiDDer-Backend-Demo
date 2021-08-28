@@ -22,7 +22,6 @@ async function saveFile({ name, type, size, filePath }) {
     const fileName = Date.now() + '.' + name;
     const distFilePath = path.join(DIST_FOLDER_PATH, fileName);
     await fse.move(filePath, distFilePath);
-
     return new SuccessResponse({
         url: '/' + fileName
     });
