@@ -3,7 +3,7 @@ const { getSquareCacheList, getSquareListFromDB } = require('../cache/blog')
 const {SuccessResponse} = require("./utils/formatResponse");
 
 async function getSquareBlogList(pageIndex = 0) {
-    const result = await getSquareListFromDB(pageIndex, PAGE_SIZE);
+    const result = await getSquareCacheList(pageIndex, PAGE_SIZE);
     const blogList = result.blogList;
 
     return new SuccessResponse({
