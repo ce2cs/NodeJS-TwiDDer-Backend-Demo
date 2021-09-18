@@ -9,8 +9,6 @@ const router = Router({
 
 router.get('/loadMore/:pageIndex', loginCheck, async (ctx, next) => {
     let { pageIndex } = ctx.params;
-    console.log('____________________');
-    console.log(pageIndex);
     pageIndex = parseInt(pageIndex);
     const result = await getSquareBlogList(pageIndex);
     result.data.blogListTpl = getBlogListStr(result.data.blogList);
